@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #ffffff; /* pure white */
+  color: #111;
+}
+
+/* Remove center box */
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Headings clean */
+h1, h2, h3 {
+  font-weight: 500;
+  color: #111;
+  margin: 0;
+}
+
+/* Paragraph */
+p {
+  margin: 0;
+  color: #555;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Smooth UI */
+* {
+  box-sizing: border-box;
+}
+.page {
+  padding: 40px 80px;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: 500;
+}

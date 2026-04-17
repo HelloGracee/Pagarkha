@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #ffffff; /* pure white */
+  color: #111;
+}
+
+/* Remove default spacing */
+h1, h2, h3, p {
+  margin: 0;
+}
+
+/* Smooth look */
+a {
+  text-decoration: none;
+  color: inherit;
+}
