@@ -1,0 +1,29 @@
+.wishlist-page {
+  padding: 50px 100px;
+  background: #f6f6f6;
+}
+
+.wishlist-item {
+  display: flex;
+  gap: 20px;
+  background: #eeeeee;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.wishlist-item img {
+  width: 100px;
+  border-radius: 10px;
+}
+
+.wishlist-item button {
+  margin-left: auto;
+  background: #f59e0b;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+}

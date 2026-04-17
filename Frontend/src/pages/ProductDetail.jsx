@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./ProductDetail.css";
 import { addToCart } from "../utils/cart";
+import { addToWishlist } from "../utils/Wishlist";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -28,6 +29,9 @@ const ProductDetail = () => {
         <button onClick={() => addToCart(product)}>
             Add to Cart
             </button>
+            <button onClick={() => addToWishlist(product)}>
+        ❤️ Add to Wishlist
+      </button>
       </div>
 
     </div>

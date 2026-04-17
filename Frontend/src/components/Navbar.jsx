@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import { FaShoppingCart, FaHeart, FaUser } from "react-icons/fa";
 import "./Navbar.css";
 import { getCartCount } from "../utils/cart";
+import { getWishlistCount } from "../utils/Wishlist";
 
 const Navbar = () => {
 
   const [count, setCount] = useState(0);
+  const [wishCount, setWishCount] = useState(0);
 
   useEffect(() => {
     const update = () => setCount(getCartCount());
@@ -17,6 +19,15 @@ const Navbar = () => {
 
     return () => window.removeEventListener("cartUpdated", update);
   }, []);
+  useEffect(() => {
+  const update = () => setWishCount(getWishlistCount());
+
+  update();
+
+  window.addEventListener("wishlistUpdated", update);
+
+  return () => window.removeEventListener("wishlistUpdated", update);
+}, []);
 
   return (
     <nav className="navbar">
@@ -35,7 +46,10 @@ const Navbar = () => {
 
       {/* RIGHT */}
       <div className="nav-right">
-        <Link to="/wishlist"><FaHeart /></Link>
+        <Link to="/wishlist" className="cart-icon">
+        <FaHeart />
+        {wishCount > 0 && <span className="badge">{wishCount}</span>}
+      </Link>
 
         <Link to="/cart" className="cart-icon">
           <FaShoppingCart />
