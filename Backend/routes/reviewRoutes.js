@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
     name,
     comment,
     rating,
-    isApproved: true // 🔥 CHANGE THIS (no need compass)
+    isApproved: false // 🔥 CHANGE THIS (no need compass)
   });
 
   await review.save();

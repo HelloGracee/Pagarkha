@@ -1,16 +1,28 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
+import ReviewForm from "../components/ReviewForm";
 
 const Home = () => {
   const [reviews, setReviews] = useState([]);
 
-  // 🔥 Fetch ONLY approved reviews
-  useEffect(() => {
-    fetch("http://localhost:5000/api/reviews")
-      .then(res => res.json())
-      .then(data => setReviews(data));
-  }, []);
+useEffect(() => {
+  const fetchReviews = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/reviews");
+      const data = await res.json();
+      setReviews(data);
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
+    }
+  };
 
+  fetchReviews();
+
+  // 🔥 auto update when new review added
+  window.addEventListener("reviewAdded", fetchReviews);
+
+  return () => window.removeEventListener("reviewAdded", fetchReviews);
+}, []);
   return (
     <div className="home">
 
@@ -57,7 +69,7 @@ const Home = () => {
           ))}
         </div>
       </section>
-
+<ReviewForm />
     </div>
   );
 };
