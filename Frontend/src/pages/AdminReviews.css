@@ -1,0 +1,37 @@
+.admin-reviews {
+  padding: 40px;
+}
+
+.review-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.actions {
+  margin-top: 10px;
+}
+
+.approve {
+  background: green;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.delete {
+  background: red;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.approved {
+  color: green;
+  font-weight: bold;
+}

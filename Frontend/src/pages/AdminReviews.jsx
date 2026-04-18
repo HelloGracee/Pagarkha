@@ -1,37 +1,80 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import "./AdminReviews.css";
 
-function AdminReviews() {
+const AdminReviews = () => {
   const [reviews, setReviews] = useState([]);
 
+  const fetchReviews = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/reviews/all");
+      const data = await res.json();
+      setReviews(data);
+    } catch (err) {
+      console.error("Error fetching reviews", err);
+    }
+  };
+
   useEffect(() => {
-    fetch("http://localhost:5000/api/reviews")
-      .then(res => res.json())
-      .then(data => setReviews(data));
+    fetchReviews();
   }, []);
 
+  // ✅ APPROVE
   const approveReview = async (id) => {
     await fetch(`http://localhost:5000/api/reviews/${id}/approve`, {
       method: "PUT",
     });
 
-    alert("Approved");
-    window.location.reload();
+    fetchReviews(); // 🔥 refresh UI
+  };
+
+  // ✅ DELETE
+  const deleteReview = async (id) => {
+    await fetch(`http://localhost:5000/api/reviews/${id}`, {
+      method: "DELETE",
+    });
+
+    fetchReviews(); // 🔥 refresh UI
   };
 
   return (
-    <div style={{ padding: "30px" }}>
+    <div className="admin-reviews">
       <h2>Manage Reviews</h2>
 
-      {reviews.map(r => (
-        <div key={r._id}>
-          <p>{r.comment}</p>
-          <button onClick={() => approveReview(r._id)}>
-            Approve
-          </button>
-        </div>
-      ))}
+      {reviews.length === 0 ? (
+        <p>No reviews found</p>
+      ) : (
+        reviews.map((r) => (
+          <div key={r._id} className="review-card">
+
+            <h4>{r.name}</h4>
+            <p>{r.comment}</p>
+            <p>⭐ {r.rating}</p>
+
+            <div className="actions">
+              {!r.isApproved ? (
+                <button
+                  className="approve"
+                  onClick={() => approveReview(r._id)}
+                >
+                  Approve
+                </button>
+              ) : (
+                <span className="approved">Approved</span>
+              )}
+
+              <button
+                className="delete"
+                onClick={() => deleteReview(r._id)}
+              >
+                Delete
+              </button>
+            </div>
+
+          </div>
+        ))
+      )}
     </div>
   );
-}
+};
 
 export default AdminReviews;
