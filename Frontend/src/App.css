@@ -1,17 +1,46 @@
-body {
+/* RESET */
+* {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: #ffffff; /* pure white */
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* BODY */
+body {
+  background: #fafafa;
   color: #111;
 }
 
-/* Remove default spacing */
-h1, h2, h3, p {
-  margin: 0;
+/* GLOBAL TRANSITION */
+* {
+  transition: all 0.25s ease;
 }
 
-/* Smooth look */
-a {
-  text-decoration: none;
-  color: inherit;
+/* SMOOTH SCROLL */
+html {
+  scroll-behavior: smooth;
+}
+
+/* BUTTON BASE */
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+/* PAGE FADE-IN */
+.page {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

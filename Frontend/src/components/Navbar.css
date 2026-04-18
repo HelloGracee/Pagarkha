@@ -4,9 +4,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 20px 80px;
-  background: white;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px); /* 🔥 premium glass */
   border-bottom: 1px solid #eee;
-  animation: fadeIn 0.6s ease-in;
+  animation: slideDown 0.5s ease;
 }
 
 /* LOGO */
@@ -18,7 +19,7 @@
 }
 
 .logo:hover {
-  transform: scale(1.05);
+  transform: scale(1.08) rotate(-1deg);
 }
 
 /* CENTER LINKS */
@@ -35,18 +36,18 @@
   font-size: 15px;
   color: #555;
   position: relative;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
-/* UNDERLINE ANIMATION */
+/* UNDERLINE (SMOOTHER) */
 .nav-center li a::after {
   content: "";
   position: absolute;
-  height: 1.5px;
+  height: 2px;
   width: 0%;
   background: black;
   left: 50%;
-  bottom: -5px;
+  bottom: -6px;
   transform: translateX(-50%);
   transition: width 0.3s ease;
 }
@@ -57,6 +58,7 @@
 
 .nav-center li a:hover {
   color: black;
+  transform: translateY(-1px);
 }
 
 /* RIGHT ICONS */
@@ -69,19 +71,17 @@
 
 .nav-right a {
   color: #555;
-  transition: 0.3s;
-  display: inline-block;
+  transition: all 0.25s ease;
 }
 
 .nav-right a:hover {
   color: black;
-  transform: scale(1.2);
+  transform: scale(1.25) rotate(5deg);
 }
 
 /* CART ICON */
 .cart-icon {
   position: relative;
-  display: inline-block;
 }
 
 /* BADGE */
@@ -100,13 +100,12 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  line-height: 1;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  animation: popIn 0.3s ease;
 }
 
 .cart-icon:hover .badge {
-  transform: scale(1.15);
+  transform: scale(1.2);
 }
 
 /* USER MENU */
@@ -116,7 +115,7 @@
   align-items: center;
 }
 
-/* 🔥 USER NAME BOX (NEW) */
+/* USER BOX */
 .user-box {
   background: black;
   color: white;
@@ -125,50 +124,49 @@
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
 .user-box:hover {
-  background: #333;
-  transform: scale(1.05);
+  background: #222;
+  transform: scale(1.08);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 /* DROPDOWN */
 .dropdown {
   position: absolute;
-  top: 40px;
+  top: 45px;
   right: 0;
   background: white;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   padding: 10px;
-  width: 160px;
+  width: 170px;
   z-index: 100;
-  animation: fadeDropdown 0.2s ease;
+  animation: dropdownFade 0.25s ease;
 }
 
+/* DROPDOWN ITEMS */
 .dropdown p {
   padding: 10px;
   margin: 0;
   cursor: pointer;
   font-size: 14px;
-  border-radius: 6px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
 .dropdown p:hover {
   background: #f5f5f5;
+  transform: translateX(5px);
 }
 
-/* GLOBAL SMOOTHNESS */
-.navbar * {
-  transition: all 0.3s ease;
-}
-
-/* FADE IN */
-@keyframes fadeIn {
+/* ANIMATIONS */
+@keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-15px);
   }
   to {
     opacity: 1;
@@ -176,14 +174,24 @@
   }
 }
 
-/* 🔥 DROPDOWN ANIMATION */
-@keyframes fadeDropdown {
+@keyframes dropdownFade {
   from {
     opacity: 0;
-    transform: translateY(-5px);
+    transform: translateY(10px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }
