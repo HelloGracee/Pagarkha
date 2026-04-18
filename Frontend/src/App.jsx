@@ -18,6 +18,7 @@ import AdminReviews from "./pages/AdminReviews";
 import About from "./pages/About";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoutes";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -101,6 +102,7 @@ function App() {
           }
         />
       </Routes>
+       <Footer />
     </Router>
   );
 }

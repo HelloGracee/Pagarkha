@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./ProductDetail.css";
-import { addToCart } from "../utils/cart";
 import { addToWishlist } from "../utils/Wishlist";
 
 const ProductDetail = () => {
@@ -11,10 +10,40 @@ const ProductDetail = () => {
   useEffect(() => {
     fetch(`http://localhost:5000/api/products/${id}`)
       .then(res => res.json())
-      .then(data => setProduct(data));
+      .then(data => setProduct(data))
+      .catch(err => console.error(err));
   }, [id]);
 
   if (!product) return <h2>Loading...</h2>;
+
+  const handleAddToCart = async () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user) {
+      alert("Please login first");
+      return;
+    }
+
+    await fetch("http://localhost:5000/api/cart/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: user._id,
+        product,
+      }),
+    });
+
+    // 🔥 Update navbar
+    window.dispatchEvent(new Event("cartUpdated"));
+
+    alert("Added to cart");
+  };
+
+  const handleWishlist = () => {
+    addToWishlist(product);
+  };
 
   return (
     <div className="product-detail">
@@ -26,12 +55,13 @@ const ProductDetail = () => {
         <p className="price">₹{product.price}</p>
         <p>{product.description}</p>
 
-        <button onClick={() => addToCart(product)}>
-            Add to Cart
-            </button>
-            <button onClick={() => addToWishlist(product)}>
-        ❤️ Add to Wishlist
-      </button>
+        <button onClick={handleAddToCart}>
+          Add to Cart
+        </button>
+
+        <button onClick={handleWishlist}>
+          ❤️ Add to Wishlist
+        </button>
       </div>
 
     </div>

@@ -38,7 +38,7 @@
   transition: 0.3s;
 }
 
-/* UNDERLINE ANIMATION (CENTER EXPAND) */
+/* UNDERLINE ANIMATION */
 .nav-center li a::after {
   content: "";
   position: absolute;
@@ -64,6 +64,7 @@
   display: flex;
   gap: 25px;
   font-size: 18px;
+  align-items: center;
 }
 
 .nav-right a {
@@ -83,37 +84,79 @@
   display: inline-block;
 }
 
-/* CART BADGE  */
+/* BADGE */
 .badge {
   position: absolute;
   top: -6px;
   right: -10px;
-
-  background: #ff3b30; /* change color if needed */
+  background: #ff3b30;
   color: white;
-
   font-size: 10px;
   font-weight: 600;
-
   min-width: 16px;
   height: 16px;
   padding: 0 4px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   border-radius: 50%;
   line-height: 1;
-
   box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-
   transition: all 0.3s ease;
 }
 
-/* BADGE HOVER */
 .cart-icon:hover .badge {
   transform: scale(1.15);
+}
+
+/* USER MENU */
+.user-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* 🔥 USER NAME BOX (NEW) */
+.user-box {
+  background: black;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.user-box:hover {
+  background: #333;
+  transform: scale(1.05);
+}
+
+/* DROPDOWN */
+.dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  padding: 10px;
+  width: 160px;
+  z-index: 100;
+  animation: fadeDropdown 0.2s ease;
+}
+
+.dropdown p {
+  padding: 10px;
+  margin: 0;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 6px;
+}
+
+.dropdown p:hover {
+  background: #f5f5f5;
 }
 
 /* GLOBAL SMOOTHNESS */
@@ -132,29 +175,15 @@
     transform: translateY(0);
   }
 }
-.user-menu {
-  position: relative;
-}
 
-.dropdown {
-  position: absolute;
-  top: 30px;
-  right: 0;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  padding: 10px;
-  width: 150px;
-  z-index: 100;
-}
-
-.dropdown p {
-  padding: 10px;
-  margin: 0;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.dropdown p:hover {
-  background: #f5f5f5;
+/* 🔥 DROPDOWN ANIMATION */
+@keyframes fadeDropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -6,7 +6,8 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 
 console.log("Auth route working");
-// ✅ REGISTER
+
+// ✅ REGISTER (no change)
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -37,7 +38,7 @@ router.post("/register", async (req, res) => {
 });
 
 
-// ✅ LOGIN
+// ✅ LOGIN (UPDATED WITH ADMIN LOGIC)
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -45,8 +46,14 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ email });
 
     if (user && await bcrypt.compare(password, user.password)) {
+
+      // 🔥 ADMIN EMAIL CHECK
+      const ADMIN_EMAIL = "admin@pagarkha.com";
+
+      const isAdmin = user.email === ADMIN_EMAIL;
+
       const token = jwt.sign(
-        { id: user._id },
+        { id: user._id, isAdmin },
         "secretkey",
         { expiresIn: "7d" }
       );
@@ -55,7 +62,7 @@ router.post("/login", async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
-        isAdmin: user.isAdmin,
+        isAdmin: isAdmin, // 🔥 IMPORTANT
         token,
       });
 

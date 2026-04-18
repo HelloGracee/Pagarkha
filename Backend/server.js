@@ -5,7 +5,7 @@ const cors = require("cors");
 const productRoutes = require("./routes/productRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const authRoutes = require("./routes/authRoutes"); // ✅ ADD THIS
-
+const cartRoutes = require("./routes/cartRoutes");
 const app = express();
 
 app.use(cors());
@@ -15,6 +15,7 @@ app.use(express.json()); // ✅ ONLY ONCE
 app.use("/api/products", productRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/auth", authRoutes); // ✅ ADD THIS
+app.use("/api/cart", cartRoutes);
 
 // ✅ MongoDB connect
 mongoose.connect("mongodb://localhost:27017/pagarkha")

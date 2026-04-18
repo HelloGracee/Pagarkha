@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import "./Checkout.css"; // ✅ make sure this is added
+import "./Checkout.css";
+import { getCart } from "../utils/cart"; // 🔥 IMPORTANT
 
 function Checkout() {
   const [cartItems, setCartItems] = useState([]);
   const [address, setAddress] = useState("");
 
   useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cart = getCart(); // ✅ FIXED
     setCartItems(cart);
   }, []);
 
@@ -34,43 +35,33 @@ function Checkout() {
       body: JSON.stringify(orderData),
     });
 
-    localStorage.removeItem("cart");
+    // 🔥 REMOVE ONLY CURRENT USER CART
+    const key = user ? `cart_${user._id}` : "cart_guest";
+    localStorage.removeItem(key);
+
+    window.dispatchEvent(new Event("cartUpdated"));
+
     alert("Order placed!");
   };
 
-  // 🔥 REPLACE ONLY THIS RETURN
   return (
-    <div className="checkout-container">
-      <h2 className="checkout-title">Checkout</h2>
+    <div>
+      <h2>Checkout</h2>
 
-      {cartItems.length === 0 ? (
-        <p className="empty-text">Your cart is empty</p>
-      ) : (
-        <div className="checkout-box">
-          
-          {cartItems.map((item, index) => (
-            <div className="checkout-item" key={index}>
-              <span className="item-name">{item.name}</span>
-              <span>₹{item.price} × {item.quantity}</span>
-            </div>
-          ))}
+      {cartItems.map(item => (
+        <p key={item._id}>
+          {item.name} - ₹{item.price}
+        </p>
+      ))}
 
-          <div className="checkout-total">
-            Total: ₹{total}
-          </div>
+      <h3>Total: ₹{total}</h3>
 
-          <textarea
-            className="checkout-textarea"
-            placeholder="Enter delivery address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-          />
+      <input
+        placeholder="Enter address"
+        onChange={(e) => setAddress(e.target.value)}
+      />
 
-          <button className="checkout-btn" onClick={placeOrder}>
-            Place Order
-          </button>
-        </div>
-      )}
+      <button onClick={placeOrder}>Place Order</button>
     </div>
   );
 }

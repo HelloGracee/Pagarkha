@@ -25,6 +25,11 @@ function Login() {
 
     if (data.token) {
       localStorage.setItem("user", JSON.stringify(data));
+
+      // 🔥 FORCE UI UPDATE
+      window.dispatchEvent(new Event("storage"));
+      window.dispatchEvent(new Event("cartUpdated"));
+
       window.location.href = "/";
     } else {
       setError(data.message || "Login failed");
